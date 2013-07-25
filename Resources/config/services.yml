@@ -1,6 +1,6 @@
 parameters:
     # listeners
-    georgetteparty.listener.preExecute.class: Krovitch\BaseBundle\Listener\ControllerPreExecuteListener
+    georgetteparty.listener.preExecute.class: GeorgetteParty\BaseBundle\Listener\ControllerPreExecuteListener
 
 services:
     # preExecute hook
