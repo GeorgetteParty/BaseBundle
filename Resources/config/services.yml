@@ -1,0 +1,10 @@
+parameters:
+    # listeners
+    georgetteparty.listener.preExecute.class: Krovitch\BaseBundle\Listener\ControllerPreExecuteListener
+
+services:
+    # preExecute hook
+    controller.pre_execute_listener:
+        class: %georgetteparty.listener.preExecute.class%
+        tags:
+            - {name: kernel.event_listener, event: kernel.controller, method: onCoreController}

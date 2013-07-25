@@ -1,0 +1,19 @@
+app/bootstrap.php.cache
+app/cache/*
+app/logs/*
+app/config/parameters.yml
+build/
+bin
+composer.phar
+composer.lock
+vendor
+web/bundles/
+web/css/
+
+# IDE
+.idea/*
+# KDE
+.directory
+# composer
+composer.phar
+composer.lock

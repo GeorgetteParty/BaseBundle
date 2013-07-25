@@ -1,0 +1,27 @@
+{
+    "name": "georgette-party/base-bundle",
+    "type": "symfony-bundle",
+    "description": "BaseBundle contains some tools to ease Symfony2 project",
+    "keywords": ["Controller", "Manager", "Repository", "Utils"],
+    "homepage": "https://github.com/GeorgetteParty/BaseBundle",
+    "license":  "MIT",
+    "authors": [
+        {
+            "name":  "JohnKrovitch",
+            "email": "arnaudfrezet@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "symfony/symfony": "2.3.*",
+        "sensio/framework-extra-bundle": "2.3.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "GeorgetteParty\\BaseBundle": ""
+        }
+    },
+    "target-dir": "GeorgetteParty/BaseBundle"
+}
