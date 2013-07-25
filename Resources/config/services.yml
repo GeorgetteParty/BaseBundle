@@ -1,6 +1,7 @@
 parameters:
     # listeners
     georgetteparty.listener.preExecute.class: GeorgetteParty\BaseBundle\Listener\ControllerPreExecuteListener
+    sensio_framework_extra.view.listener.class: GeorgetteParty\BaseBundle\Listener\ParametersTemplateListener
 
 services:
     # preExecute hook
