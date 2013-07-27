@@ -8,6 +8,6 @@ use \Symfony\Component\HttpKernel\Bundle\Bundle;
  * Here is the commander base
  * @package GeorgetteParty\BaseBundle
  */
-class BaseBundle extends Bundle
+class GeorgettePartyBaseBundle extends Bundle
 {
 }

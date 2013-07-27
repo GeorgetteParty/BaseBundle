@@ -7,7 +7,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Config\FileLocator;
 use GeorgetteParty\BaseBundle\DependencyInjection\Configuration\Configuration;
 
-class KrovitchExtension extends Extension
+class BaseExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container)
     {
