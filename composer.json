@@ -23,5 +23,5 @@
             "GeorgetteParty\\BaseBundle": ""
         }
     },
-    "target-dir": ""
+    "target-dir": "GeorgetteParty/BaseBundle"
 }
