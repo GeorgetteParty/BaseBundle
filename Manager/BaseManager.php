@@ -24,35 +24,44 @@ abstract class BaseManager
 
     /**
      * @param $object
+     * @param bool $andFlush
      * @return BaseManager
      */
-    public function save($object)
+    public function save($object, $andFlush = true)
     {
         $entityManager = $this->getEntityManager();
         $entityManager->persist($object);
-        $entityManager->flush();
+
+        if ($andFlush) {
+            $entityManager->flush();
+        }
 
         return $this;
     }
 
     /**
      * @param $object
+     * @param bool $andFlush
      * @return BaseManager
      */
-    public function delete($object)
+    public function delete($object, $andFlush = true)
     {
         $this->getEntityManager()->remove($object);
-        $this->getEntityManager()->flush();
+
+        if ($andFlush) {
+            $this->getEntityManager()->flush();
+        }
 
         return $this;
     }
 
     /**
      * @param $id
+     * @param bool $andFlush
      * @return BaseManager
      * @throws \Doctrine\ORM\EntityNotFoundException
      */
-    public function deleteById($id)
+    public function deleteById($id, $andFlush = true)
     {
         $object = $this->find($id);
 
@@ -60,7 +69,10 @@ abstract class BaseManager
             throw new EntityNotFoundException;
         }
         $this->getEntityManager()->remove($object);
-        $this->getEntityManager()->flush();
+
+        if ($andFlush) {
+            $this->getEntityManager()->flush();
+        }
 
         return $this;
     }
