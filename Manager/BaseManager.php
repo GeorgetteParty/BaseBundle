@@ -1,47 +1,94 @@
 <?php
 
 namespace GeorgetteParty\BaseBundle\Manager;
+
 use Doctrine\Common\Persistence\ObjectManager;
 use GeorgetteParty\BaseBundle\Utils\ClassGuesser;
 use Symfony\Component\DependencyInjection\Container;
+use Doctrine\ORM\EntityNotFoundException;
 
-// TODO comment here
+/**
+ * @todo comment here
+ */
 abstract class BaseManager
 {
-    protected $entity_manager;
+    /**
+     * @var \Doctrine\Common\Persistence\ObjectManager
+     */
+    protected $entityManager;
 
-    public function __construct(ObjectManager $entity_manager)
+    public function __construct(ObjectManager $entityManager)
     {
-        $this->entity_manager = $entity_manager;
+        $this->entityManager = $entityManager;
     }
 
-    public function save($object_to_persist)
+    /**
+     * @param $object
+     * @param bool $andFlush
+     * @return BaseManager
+     */
+    public function save($object, $andFlush = true)
     {
-        $entity_manager = $this->getEntityManager();
-        $entity_manager->persist($object_to_persist);
-        $entity_manager->flush();
-    }
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($object);
 
-    public function delete($mixed)
-    {
-        $object_to_delete = $mixed;
-
-        if (!is_object($mixed)) {
-            $object_to_delete = $this->find($mixed);
-
-            if (!$object_to_delete) {
-                throw new \Exception('Entity not found');
-            }
+        if ($andFlush) {
+            $entityManager->flush();
         }
-        $this->getEntityManager()->remove($object_to_delete);
-        $this->getEntityManager()->flush();
+
+        return $this;
     }
 
+    /**
+     * @param $object
+     * @param bool $andFlush
+     * @return BaseManager
+     */
+    public function delete($object, $andFlush = true)
+    {
+        $this->getEntityManager()->remove($object);
+
+        if ($andFlush) {
+            $this->getEntityManager()->flush();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param $id
+     * @param bool $andFlush
+     * @return BaseManager
+     * @throws \Doctrine\ORM\EntityNotFoundException
+     */
+    public function deleteById($id, $andFlush = true)
+    {
+        $object = $this->find($id);
+
+        if (!$object) {
+            throw new EntityNotFoundException;
+        }
+        $this->getEntityManager()->remove($object);
+
+        if ($andFlush) {
+            $this->getEntityManager()->flush();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
     public function findAll()
     {
         return $this->getRepository()->findAll();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function find($id)
     {
         return $this->getRepository()->find($id);
@@ -71,8 +118,11 @@ abstract class BaseManager
         return $this->getEntityManager()->getRepository($repositoryName);
     }
 
+    /**
+     * @return \Doctrine\Common\Persistence\ObjectManager
+     */
     public function getEntityManager()
     {
-        return $this->entity_manager;
+        return $this->entityManager;
     }
 }

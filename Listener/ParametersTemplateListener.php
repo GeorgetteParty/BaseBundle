@@ -1,6 +1,7 @@
 <?php
 
 namespace GeorgetteParty\BaseBundle\Listener;
+
 use GeorgetteParty\BaseBundle\Utils\ClassGuesser;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
@@ -14,6 +15,10 @@ use Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener;
  */
 class ParametersTemplateListener extends TemplateListener
 {
+    /**
+     * @param \Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent $event
+     * @return array|null
+     */
     public function onKernelView(GetResponseForControllerResultEvent $event)
     {
         $request = $event->getRequest();
