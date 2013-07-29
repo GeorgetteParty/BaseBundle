@@ -1,6 +1,7 @@
 <?php
 
 namespace GeorgetteParty\BaseBundle;
+
 use \Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
