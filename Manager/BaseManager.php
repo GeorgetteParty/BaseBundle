@@ -5,6 +5,7 @@ namespace GeorgetteParty\BaseBundle\Manager;
 use Doctrine\Common\Persistence\ObjectManager;
 use GeorgetteParty\BaseBundle\Utils\ClassGuesser;
 use Symfony\Component\DependencyInjection\Container;
+use Doctrine\ORM\EntityNotFoundException;
 
 /**
  * @todo comment here
@@ -51,6 +52,24 @@ abstract class BaseManager
         }
         $this->getEntityManager()->remove($object_to_delete);
         $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @param $id
+     * @return BaseManager
+     * @throws \Doctrine\ORM\EntityNotFoundException
+     */
+    public function deleteById($id)
+    {
+        $object = $this->find($id);
+
+        if (!$object) {
+            throw new EntityNotFoundException;
+        }
+        $this->getEntityManager()->remove($object);
+        $this->getEntityManager()->flush();
+
+        return $this;
     }
 
     /**
