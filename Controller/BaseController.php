@@ -1,6 +1,7 @@
 <?php
 
 namespace GeorgetteParty\BaseBundle\Controller;
+
 use Krovitch\BaseBundle\Utils\ClassGuesser;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\Container;
@@ -40,6 +41,10 @@ abstract class BaseController extends Controller
         return $this->get('session');
     }
 
+    /**
+     * @param $key
+     * @return mixed
+     */
     public function getConfig($key)
     {
         return $this->container->getParameter($key);
@@ -119,24 +124,4 @@ abstract class BaseController extends Controller
     {
         return $this->getTranslator()->trans($string, $parameters);
     }
-
-
-    // TODO make it generic with configuration parameter
-//    public function getPager()
-//    {
-//        return $this->get('knp_paginator');
-//    }
-
-    // TODO useful ? maybe with parameters in conf
-    /*public function log(\Exception $e, $notify = false, $message = '')
-    {
-        // on loggue l'erreur et on informe l'utilisateur que la création du fichier ne s'est pas correctement terminée
-        $this->getManager('Log')->create($e->getMessage(), $e->getTraceAsString());
-        $this->get('logger')->err($e->getMessage());
-
-        if ($notify) {
-            // on informe l'utilisateur qu'une erreur s'est déroulée
-            $this->setMessage($message, array(), 'error');
-        }
-    }*/
 }
