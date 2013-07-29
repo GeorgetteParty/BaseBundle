@@ -1,6 +1,7 @@
 <?php
 
 namespace GeorgetteParty\BaseBundle\Command;
+
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
@@ -8,6 +9,12 @@ use Symfony\Component\Yaml\Parser;
 
 class BaseCommandLine extends ContainerAwareCommand
 {
+    /**
+     * @param $command
+     * @param array $arguments
+     * @param \Symfony\Component\Console\Output\OutputInterface $printOutput
+     * @return array
+     */
     public function executeCommand($command, $arguments = array(), OutputInterface $printOutput = null)
     {
         $argumentsCommand = ' ';
@@ -30,6 +37,11 @@ class BaseCommandLine extends ContainerAwareCommand
         return $output;
     }
 
+    /**
+     * @param array $commands
+     * @param \Symfony\Component\Console\Output\OutputInterface $printOutput
+     * @return array
+     */
     public function executeCommands(array $commands, OutputInterface $printOutput = null)
     {
         $output = array();
@@ -40,6 +52,10 @@ class BaseCommandLine extends ContainerAwareCommand
         return $output;
     }
 
+    /**
+     * @param $command
+     * @throws \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
+     */
     public function cleanCommand($command)
     {
         if (!$command) {
@@ -50,6 +66,9 @@ class BaseCommandLine extends ContainerAwareCommand
         }
     }
 
+    /**
+     * @return string
+     */
     public function getRelativeRootDir()
     {
         return __DIR__ . '/../../../../';

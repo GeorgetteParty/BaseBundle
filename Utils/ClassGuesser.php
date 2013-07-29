@@ -1,6 +1,7 @@
 <?php
 
 namespace GeorgetteParty\BaseBundle\Utils;
+
 use Symfony\Component\Config\Definition\Exception\Exception;
 
 /**
@@ -10,14 +11,35 @@ use Symfony\Component\Config\Definition\Exception\Exception;
  */
 class ClassGuesser
 {
+    /**
+     * @var
+     */
     protected $namespace;
+
+    /**
+     * @var
+     */
     protected $bundle;
+
+    /**
+     * @var
+     */
     protected $directory;
+
+    /**
+     * @var
+     */
     protected $class;
 
+    /**
+     * @var string
+     */
     protected $classPattern = '/([a-z]*)\\\\([a-z]*)\\\\([a-z]*)\\\\([a-z]*)/i';
 
 
+    /**
+     * @param $mixed
+     */
     public function __construct($mixed)
     {
         if (!$mixed) {
