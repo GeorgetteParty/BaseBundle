@@ -9,6 +9,10 @@
         {
             "name":  "JohnKrovitch",
             "email": "arnaudfrezet@gmail.com"
+        },
+        {
+            "name":  "JohanDufour",
+            "email": "johan.dufour@gmail.com"
         }
     ],
     "require": {
