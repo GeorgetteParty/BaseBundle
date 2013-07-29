@@ -36,22 +36,15 @@ abstract class BaseManager
     }
 
     /**
-     * @param $mixed
-     * @throws \Exception
+     * @param $object
+     * @return BaseManager
      */
-    public function delete($mixed)
+    public function delete($object)
     {
-        $object_to_delete = $mixed;
-
-        if (!is_object($mixed)) {
-            $object_to_delete = $this->find($mixed);
-
-            if (!$object_to_delete) {
-                throw new \Exception('Entity not found');
-            }
-        }
-        $this->getEntityManager()->remove($object_to_delete);
+        $this->getEntityManager()->remove($object);
         $this->getEntityManager()->flush();
+
+        return $this;
     }
 
     /**
