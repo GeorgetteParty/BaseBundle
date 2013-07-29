@@ -1,11 +1,11 @@
 parameters:
     # listeners
-    georgetteparty.listener.preExecute.class: GeorgetteParty\BaseBundle\Listener\ControllerPreExecuteListener
+    georgette_party_base.listener.controller_pre_execute.class: GeorgetteParty\BaseBundle\Listener\ControllerPreExecuteListener
     sensio_framework_extra.view.listener.class: GeorgetteParty\BaseBundle\Listener\ParametersTemplateListener
 
 services:
     # preExecute hook
-    controller.pre_execute_listener:
-        class: %georgetteparty.listener.preExecute.class%
+    georgette_party_base.listener.controller_pre_execute
+        class: %georgette_party_base.listener.controller_pre_execute.class%
         tags:
             - {name: kernel.event_listener, event: kernel.controller, method: onCoreController}
