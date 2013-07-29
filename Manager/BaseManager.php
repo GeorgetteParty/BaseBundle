@@ -14,11 +14,11 @@ abstract class BaseManager
     /**
      * @var \Doctrine\Common\Persistence\ObjectManager
      */
-    protected $entity_manager;
+    protected $entityManager;
 
-    public function __construct(ObjectManager $entity_manager)
+    public function __construct(ObjectManager $entityManager)
     {
-        $this->entity_manager = $entity_manager;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -26,9 +26,9 @@ abstract class BaseManager
      */
     public function save($object_to_persist)
     {
-        $entity_manager = $this->getEntityManager();
-        $entity_manager->persist($object_to_persist);
-        $entity_manager->flush();
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($object_to_persist);
+        $entityManager->flush();
     }
 
     /**
@@ -96,6 +96,6 @@ abstract class BaseManager
      */
     public function getEntityManager()
     {
-        return $this->entity_manager;
+        return $this->entityManager;
     }
 }
