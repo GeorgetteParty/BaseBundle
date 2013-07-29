@@ -22,13 +22,16 @@ abstract class BaseManager
     }
 
     /**
-     * @param $object_to_persist
+     * @param $object
+     * @return BaseManager
      */
-    public function save($object_to_persist)
+    public function save($object)
     {
         $entityManager = $this->getEntityManager();
-        $entityManager->persist($object_to_persist);
+        $entityManager->persist($object);
         $entityManager->flush();
+
+        return $this;
     }
 
     /**
