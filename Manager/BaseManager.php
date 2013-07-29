@@ -1,13 +1,19 @@
 <?php
 
 namespace GeorgetteParty\BaseBundle\Manager;
+
 use Doctrine\Common\Persistence\ObjectManager;
 use GeorgetteParty\BaseBundle\Utils\ClassGuesser;
 use Symfony\Component\DependencyInjection\Container;
 
-// TODO comment here
+/**
+ * @todo comment here
+ */
 abstract class BaseManager
 {
+    /**
+     * @var \Doctrine\Common\Persistence\ObjectManager
+     */
     protected $entity_manager;
 
     public function __construct(ObjectManager $entity_manager)
@@ -15,6 +21,9 @@ abstract class BaseManager
         $this->entity_manager = $entity_manager;
     }
 
+    /**
+     * @param $object_to_persist
+     */
     public function save($object_to_persist)
     {
         $entity_manager = $this->getEntityManager();
@@ -22,6 +31,10 @@ abstract class BaseManager
         $entity_manager->flush();
     }
 
+    /**
+     * @param $mixed
+     * @throws \Exception
+     */
     public function delete($mixed)
     {
         $object_to_delete = $mixed;
@@ -37,11 +50,18 @@ abstract class BaseManager
         $this->getEntityManager()->flush();
     }
 
+    /**
+     * @return mixed
+     */
     public function findAll()
     {
         return $this->getRepository()->findAll();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function find($id)
     {
         return $this->getRepository()->find($id);
@@ -71,6 +91,9 @@ abstract class BaseManager
         return $this->getEntityManager()->getRepository($repositoryName);
     }
 
+    /**
+     * @return \Doctrine\Common\Persistence\ObjectManager
+     */
     public function getEntityManager()
     {
         return $this->entity_manager;
