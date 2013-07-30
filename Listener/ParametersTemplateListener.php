@@ -45,9 +45,9 @@ class ParametersTemplateListener extends TemplateListener
         }
         // TODO add a trigger in conf
         // dynamically add widgets into template
-        $mainTemplate = $this->getMainTemplateName();
+        $layout = $this->getLayout();
         // you can add here your own twig parameters
-        $parameters = array_merge($parameters, array('mainTemplate' => $mainTemplate));
+        $parameters = array_merge($parameters, array('mainTemplate' => $layout));
 
         if (!$request->attributes->get('_template_streamable')) {
             $event->setResponse($templating->renderResponse($template, $parameters));
@@ -65,7 +65,7 @@ class ParametersTemplateListener extends TemplateListener
      * Return main layout name
      * @return string
      */
-    protected function getMainTemplateName()
+    protected function getLayout()
     {
         $guesser = new ClassGuesser($this);
         $bundle = $guesser->getBundle();
@@ -73,5 +73,4 @@ class ParametersTemplateListener extends TemplateListener
 
         return sprintf($template, $bundle);
     }
-
 }

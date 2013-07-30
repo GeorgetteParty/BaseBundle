@@ -5,79 +5,87 @@ namespace GeorgetteParty\BaseBundle\Manager;
 use Doctrine\Common\Persistence\ObjectManager;
 use GeorgetteParty\BaseBundle\Utils\ClassGuesser;
 use Symfony\Component\DependencyInjection\Container;
-use Doctrine\ORM\EntityNotFoundException;
+use Symfony\Component\Security\Acl\Exception\Exception;
 
 /**
- * @todo comment here
+ * Abstract BaseManager
  */
 abstract class BaseManager
 {
     /**
+     * Current manager $entityManager
      * @var \Doctrine\Common\Persistence\ObjectManager
      */
     protected $entityManager;
 
+    /**
+     * Construct a BaseManager with its entityManager
+     * @param ObjectManager $entityManager
+     */
     public function __construct(ObjectManager $entityManager)
     {
         $this->entityManager = $entityManager;
     }
 
     /**
+     * Save an object
      * @param $object
      * @param bool $andFlush
      * @return BaseManager
      */
     public function save($object, $andFlush = true)
     {
+        // TODO handle collections
         $entityManager = $this->getEntityManager();
         $entityManager->persist($object);
 
         if ($andFlush) {
             $entityManager->flush();
         }
-
         return $this;
     }
 
     /**
+     * Delete an entity
      * @param $object
      * @param bool $andFlush
      * @return BaseManager
      */
     public function delete($object, $andFlush = true)
     {
+        // TODO handle collections
         $this->getEntityManager()->remove($object);
 
         if ($andFlush) {
             $this->getEntityManager()->flush();
         }
-
         return $this;
     }
 
     /**
+     * Delete an entity by its id
      * @param $id
      * @param bool $andFlush
+     * @throws \Symfony\Component\Security\Acl\Exception\Exception
      * @return BaseManager
-     * @throws \Doctrine\ORM\EntityNotFoundException
      */
     public function deleteById($id, $andFlush = true)
     {
         $object = $this->find($id);
 
         if (!$object) {
-            throw new EntityNotFoundException;
+            throw new Exception();
         }
         $this->getEntityManager()->remove($object);
 
         if ($andFlush) {
             $this->getEntityManager()->flush();
         }
-
         return $this;
     }
 
     /**
+     * Find all entities from the current repository
      * @return mixed
      */
     public function findAll()
@@ -86,6 +94,7 @@ abstract class BaseManager
     }
 
     /**
+     * Find one entity by its id
      * @param $id
      * @return mixed
      */
@@ -95,6 +104,8 @@ abstract class BaseManager
     }
 
     /**
+     * Return the repository object by its name $repositoryName
+     * If $repositoryName is null, it will try to guess it
      * @param null $repositoryName
      * @return \Doctrine\Common\Persistence\ObjectRepository
      */
@@ -110,7 +121,7 @@ abstract class BaseManager
             // get bundle and repository in camel case
             $repositoryName = Container::camelize($repositoryName);
         }
-        // TODO make this more permissive (here, other wont work)
+        // TODO make this more permissive (here, other bundles wont work)
         // add bundle prefix
         if (substr($repositoryName, 0, 7) != $bundle) {
             $repositoryName = $bundle . $repositoryName;
@@ -119,6 +130,7 @@ abstract class BaseManager
     }
 
     /**
+     * Return current entityManager
      * @return \Doctrine\Common\Persistence\ObjectManager
      */
     public function getEntityManager()
