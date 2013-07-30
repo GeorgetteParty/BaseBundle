@@ -1,6 +1,7 @@
 <?php
 
 namespace GeorgetteParty\BaseBundle\Listener;
+
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
@@ -11,6 +12,9 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
  */
 class ControllerPreExecuteListener
 {
+    /**
+     * @param \Symfony\Component\HttpKernel\Event\FilterControllerEvent $event
+     */
     public function onCoreController(FilterControllerEvent $event)
     {
         // get event
