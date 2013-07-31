@@ -2,7 +2,6 @@
 
 namespace GeorgetteParty\BaseBundle\Listener;
 
-use GeorgetteParty\BaseBundle\Utils\ClassGuesser;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpFoundation\StreamedResponse;
