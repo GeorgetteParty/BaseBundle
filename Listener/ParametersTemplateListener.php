@@ -7,6 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener;
+use Symfony\Component\Templating\TemplateReference;
 
 /**
  * Class ParametersTemplateListener
@@ -45,7 +46,7 @@ class ParametersTemplateListener extends TemplateListener
         }
         // TODO add a trigger in conf
         // dynamically add widgets into template
-        $layout = $this->getLayout();
+        $layout = $this->getLayout($request->attributes->get('_template'));
         // you can add here your own twig parameters
         $parameters = array_merge($parameters, array('mainTemplate' => $layout));
 
@@ -63,12 +64,12 @@ class ParametersTemplateListener extends TemplateListener
 
     /**
      * Return main layout name
+     * @param \Symfony\Component\Templating\TemplateReference $templateReference
      * @return string
      */
-    protected function getLayout()
+    protected function getLayout(TemplateReference $templateReference)
     {
-        $guesser = new ClassGuesser($this);
-        $bundle = $guesser->getBundle();
+        $bundle = $templateReference->get('bundle');
         $template = '%s:Layout:content.layout.html.twig';
 
         return sprintf($template, $bundle);
