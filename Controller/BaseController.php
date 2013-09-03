@@ -2,7 +2,7 @@
 
 namespace GeorgetteParty\BaseBundle\Controller;
 
-use Krovitch\BaseBundle\Utils\ClassGuesser;
+use GeorgetteParty\BaseBundle\Utils\ClassGuesser;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\RedirectResponse;
