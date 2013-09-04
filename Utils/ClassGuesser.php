@@ -36,9 +36,9 @@ class ClassGuesser
      */
     protected $classPattern = '/([a-z]*)\\\\([a-z]*)\\\\([a-z]*)\\\\([a-z]*)/i';
 
-
     /**
      * @param $mixed
+     * @throws \Symfony\Component\Config\Definition\Exception\Exception
      */
     public function __construct($mixed)
     {
@@ -66,11 +66,17 @@ class ClassGuesser
 
     /**
      * Return class bundle name
+     * @param array $excludes
      * @return string
      */
-    public function getBundle()
+    public function getBundle($excludes = array())
     {
-        return $this->bundle;
+        $bundle = $this->bundle;
+
+        if (count($excludes)) {
+            $bundle = str_replace($excludes, '', $bundle);
+        }
+        return $bundle;
     }
 
     /**
