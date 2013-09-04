@@ -63,6 +63,18 @@ abstract class BaseManager
     }
 
     /**
+     * Delete a collection of entities
+     * @param array $collection
+     * @param bool $andFlush
+     */
+    public function deleteCollection($collection, $andFlush = true)
+    {
+        foreach ($collection as $item) {
+            $this->delete($item, $andFlush);
+        }
+    }
+
+    /**
      * Delete an entity by its id
      * @param $id
      * @param bool $andFlush
@@ -112,19 +124,14 @@ abstract class BaseManager
     protected function getRepository($repositoryName = null)
     {
         $guesser = new ClassGuesser($this);
-        $bundle = $guesser->getBundle();
 
         // try to find automatically the repository name
         if (!$repositoryName) {
             $repositoryName = $guesser->getClass(array('Manager', 'Controller'));
+            $repositoryName = sprintf('%s%s:%s', $guesser->getNamespace(), $guesser->getBundle(), $repositoryName);
 
             // get bundle and repository in camel case
             $repositoryName = Container::camelize($repositoryName);
-        }
-        // TODO make this more permissive (here, other bundles wont work)
-        // add bundle prefix
-        if (substr($repositoryName, 0, 7) != $bundle) {
-            $repositoryName = $bundle . $repositoryName;
         }
         return $this->getEntityManager()->getRepository($repositoryName);
     }
