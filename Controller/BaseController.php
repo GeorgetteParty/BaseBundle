@@ -57,19 +57,15 @@ abstract class BaseController extends Controller
      */
     protected function getManager($managerName = null)
     {
-        // try to find automatically the repository name
+        $guesser = new ClassGuesser($this);
+        // try to find automatically the manager name
         if (!$managerName) {
-            $guesser = new ClassGuesser($this);
             $managerName = $guesser->getClass(array('Manager', 'Controller'));
-            $bundle = strtolower($guesser->getBundle());
-
-            // add bundle prefix
-            if (substr($managerName, 0, 7) != $bundle) {
-                $managerName = $bundle . $managerName . '_manager';
-            }
         }
-        $managerName = Container::camelize($managerName);
-
+        // manager service name pattern : project_bundle.managerName_manager
+        $managerName = sprintf('%s_%s.%s_%s', $guesser->getNamespace(), $guesser->getBundle(array('Bundle')), $managerName, 'manager');
+        $managerName = strtolower($managerName);
+        // get manager from service
         return $this->get($managerName);
     }
 
