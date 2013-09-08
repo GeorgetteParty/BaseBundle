@@ -5,7 +5,7 @@ parameters:
 
 services:
     # preExecute hook
-    georgette_party_base.listener.controller_pre_execute
+    georgette_party_base.listener.controller_pre_execute:
         class: %georgette_party_base.listener.controller_pre_execute.class%
         tags:
             - {name: kernel.event_listener, event: kernel.controller, method: onCoreController}
