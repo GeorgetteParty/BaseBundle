@@ -50,6 +50,11 @@ abstract class BaseController extends Controller
         return $this->container->getParameter($key);
     }
 
+    public function getRouting()
+    {
+        return $this->get('router');
+    }
+
     /**
      * Return the manager linked with this controller
      * @param null $managerName
