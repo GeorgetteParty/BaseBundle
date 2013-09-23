@@ -1,0 +1,4 @@
+GeorgettePartyBaseBundle:
+    resource: "@GeorgettePartyBaseBundle/Controller/"
+    type:     annotation
+    prefix:   /
