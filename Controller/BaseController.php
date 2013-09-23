@@ -4,6 +4,7 @@ namespace GeorgetteParty\BaseBundle\Controller;
 
 use GeorgetteParty\BaseBundle\Utils\ClassGuesser;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -42,6 +43,7 @@ abstract class BaseController extends Controller
     }
 
     /**
+     * Return configuration according to $key
      * @param $key
      * @return mixed
      */
@@ -50,6 +52,10 @@ abstract class BaseController extends Controller
         return $this->container->getParameter($key);
     }
 
+    /**
+     * Return routing
+     * @return Router
+     */
     public function getRouting()
     {
         return $this->get('router');
