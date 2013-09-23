@@ -23,3 +23,6 @@ web/css/
 # composer
 composer.phar
 composer.lock
+
+# phpunit
+phpunit.xml
