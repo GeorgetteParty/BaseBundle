@@ -1,0 +1,10 @@
+language: php
+
+php:
+  - 5.4
+
+script: phpunit -c phpunit.xml
+
+before_script:
+  - php init/travis/init.php
+  - composer install --prefer-source  --no-interaction
