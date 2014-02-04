@@ -34,7 +34,9 @@ class ClassGuesser
     /**
      * @var string
      */
+    // TODO test pattern
     protected $classPattern = '/([a-z]*)\\\\([a-z]*)\\\\([a-z]*)\\\\([a-z]*)/i';
+    //protected $classPattern = '\\([a-z]*)';
 
     /**
      * @param $mixed
