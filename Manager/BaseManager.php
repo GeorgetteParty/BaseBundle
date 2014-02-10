@@ -139,7 +139,7 @@ abstract class BaseManager
     /**
      * Return current entityManager
      *
-     * @return Doctrine\ORM\EntityManager
+     * @return \Doctrine\ORM\EntityManager
      */
     public function getEntityManager()
     {
